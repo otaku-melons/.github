@@ -28,8 +28,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install .[dev]
 
+      - name: Check requirements.txt existence
+        id: check_files
+        uses: andstor/file-existence-action@v3
+        with:
+          files: "Parsers/${{ github.event.repository.name }}/requirements.txt"
+
       - name: Install custom parser dependencies
-        if: hashFiles('Parsers/${{ github.event.repository.name }}/requirements.txt')
+        if: steps.check_files.outputs.files_exists == 'true'
         run: pip install -r Parsers/${{ github.event.repository.name }}/requirements.txt
 
       - name: Run Mypy
