@@ -5,6 +5,7 @@ on:
 
 jobs:
   type-check:
+    if: github.base_ref == "main" || (github.event_name != "pull_request" && github.ref_name == "main")
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
