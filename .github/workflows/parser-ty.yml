@@ -1,0 +1,38 @@
+name: ty
+
+on:
+  workflow_call:
+
+jobs:
+  type-check:
+    runs-on: ubuntu-latest
+    env:
+      UV_LINK_MODE: symlink # Fixes files hardlinking.
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: parsers/${{ github.event.repository.name }}
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.14
+        
+      - name: Set up Melon
+        run: |
+          uv venv
+          uv pip install git+https://github.com/otaku-melons/melon[dev]
+
+      - name: Install requirements
+        run: |
+          if [ -f "parsers/${{ github.event.repository.name }}/requirements.txt" ]; then
+            uv pip install -r parsers/${{ github.event.repository.name }}/requirements.txt
+          fi
+        shell: bash
+
+      - name: Run ty
+        run: uv run ty check .
+        
