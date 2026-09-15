@@ -1,0 +1,21 @@
+name: Sync labels
+
+on:
+  workflow_call:
+
+permissions:
+  issues: write
+
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/labels.yml
+
+      - uses: EndBug/label-sync@v2
+        with:
+          source-repo: otaku-melons/.github
+          delete-other-labels: true
