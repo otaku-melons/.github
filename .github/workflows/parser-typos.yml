@@ -1,0 +1,17 @@
+name: typos
+
+on: 
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  spelling:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Spell check repo
+      uses: crate-ci/typos@v1
