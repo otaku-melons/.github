@@ -12,7 +12,13 @@ jobs:
     env:
       UV_LINK_MODE: symlink # Fixes files hardlinking.
     steps:
-      - uses: actions/checkout@v7
+      - name: Checkout Melon
+        uses: actions/checkout@v7
+        with:
+        repository: otaku-melons/melon
+
+      - name: Checkout parser
+        uses: actions/checkout@v7
         with:
           path: parsers/${{ github.event.repository.name }}
 
@@ -23,11 +29,9 @@ jobs:
           python-version: "3.14"
         
       - name: Set up Melon
-        run: |
-          uv venv
-          uv pip install git+https://github.com/otaku-melons/melon --group dev
+        run: uv sync --all-extras --all-groups
 
-      - name: Install requirements
+      - name: Install parser requirements
         run: |
           if [ -f "parsers/${{ github.event.repository.name }}/requirements.txt" ]; then
             uv pip install -r parsers/${{ github.event.repository.name }}/requirements.txt
