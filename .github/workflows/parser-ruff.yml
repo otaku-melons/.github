@@ -1,7 +1,7 @@
 name: Ruff
 
 permissions:
-  content: read
+  contents: read
 
 on:
   workflow_call:

@@ -1,7 +1,7 @@
 name: Sync labels
 
 permissions:
-  content: read
+  contents: read
   issues: write
 
 on:
