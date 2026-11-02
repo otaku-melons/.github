@@ -1,5 +1,8 @@
 name: Ruff
 
+permissions:
+  content: read
+
 on:
   workflow_call:
 
@@ -10,12 +13,10 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@v10.3.0
+        uses: astral-sh/setup-uv@v10.3.3
         with:
           enable-cache: true
-
-      - name: Set up Python
-        run: uv python install 3.14
+          python-version: "3.14"
 
       - name: Fetch shared Ruff config
         run: curl -sSfo ruff.toml https://raw.githubusercontent.com/otaku-melons/.github/refs/heads/main/ruff.toml

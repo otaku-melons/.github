@@ -1,5 +1,8 @@
 name: typos
 
+permissions:
+  content: read
+
 on: 
   workflow_call:
 

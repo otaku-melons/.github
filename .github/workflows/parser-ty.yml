@@ -1,5 +1,8 @@
 name: ty
 
+permissions:
+  content: read
+
 on:
   workflow_call:
 
@@ -14,17 +17,15 @@ jobs:
           path: parsers/${{ github.event.repository.name }}
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@v10.3.0
+        uses: astral-sh/setup-uv@v10.3.3
         with:
           enable-cache: true
-
-      - name: Set up Python
-        run: uv python install 3.14
+          python-version: "3.14"
         
       - name: Set up Melon
         run: |
           uv venv
-          uv pip install git+https://github.com/otaku-melons/melon[dev]
+          uv pip install git+https://github.com/otaku-melons/melon --group dev
 
       - name: Install requirements
         run: |

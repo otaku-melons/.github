@@ -1,10 +1,11 @@
 name: Sync labels
 
+permissions:
+  content: read
+  issues: write
+
 on:
   workflow_call:
-
-permissions:
-  issues: write
 
 jobs:
   labels:
