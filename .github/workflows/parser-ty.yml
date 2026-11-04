@@ -15,7 +15,7 @@ jobs:
       - name: Checkout Melon
         uses: actions/checkout@v7
         with:
-        repository: otaku-melons/melon
+          repository: otaku-melons/melon
 
       - name: Checkout parser
         uses: actions/checkout@v7
